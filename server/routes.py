@@ -11,14 +11,13 @@ def create_trip():
     start_date_str = data['starts_at']
     end_date_str = data['ends_at']
     
-    # Converte as datas do formato string para datetime
     start_date = datetime.strptime(start_date_str, '%a, %d %b %Y %H:%M:%S GMT')
     end_date = datetime.strptime(end_date_str, '%a, %d %b %Y %H:%M:%S GMT')
     
     new_trip = Trip(
         destination=data['destination'],
-        starts_at=start_date_str,  # Mantém o formato original
-        ends_at=end_date_str,      # Mantém o formato original
+        starts_at=start_date_str,  
+        ends_at=end_date_str,      
         emails_to_invite=json.dumps(data['emails_to_invite']),
         owner_name=data['owner_name'],
         owner_email=data['owner_email'],
@@ -27,11 +26,11 @@ def create_trip():
     db.session.add(new_trip)
     db.session.commit()
 
-    # Adiciona atividades para cada dia da viagem
+    
     current_date = start_date
 
     while current_date <= end_date:
-        # Formata a data no formato desejado
+       
         
         new_activity = Activity(
             date=current_date,
